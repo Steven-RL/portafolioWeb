@@ -1,0 +1,359 @@
+/* ============================================================
+   styles.css — Tema ELEGANTE · Claro y Llamativo
+   Paleta: Blanco nieve + Esmeralda + Coral dorado
+   Fuentes: Playfair Display + Plus Jakarta Sans
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+/* ── Variables ──────────────────────────────────────────── */
+:root {
+  --c-base:      #eef2f0;
+  --c-surface:   #fcfcfa;
+  --c-raised:    #F4f6f3;
+  --c-hobby:     #F7F3EB; 
+  --c-fg:        #0f151c;
+  --c-accent:    #0E7A5A;   /* esmeralda profunda */
+  --c-accent2:   #E8622A;   /* coral/naranja cálido */
+  --c-gold:      #C9913A;   /* dorado elegante */
+  --c-muted:     #6B7C74;
+  --c-border:    rgba(14, 122, 90, 0.12);
+  --c-glow:      rgba(14, 122, 90, 0.15);
+  --c-shadow:    rgba(15, 28, 22, 0.10);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Plus Jakarta Sans', sans-serif;
+
+  --radius-sm:   .5rem;
+  --radius-md:   1rem;
+  --radius-lg:   1.5rem;
+  --radius-xl:   2rem;
+}
+
+/* ── Reset / Base ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--c-base);
+  color: var(--c-fg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Keyframes ──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spinRing {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes floatDot {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* ── Animaciones de entrada ─────────────────────────────── */
+.fade-up         { animation: fadeUp .65s cubic-bezier(.22,1,.36,1) both; }
+.fade-up-delay-1 { animation: fadeUp .65s cubic-bezier(.22,1,.36,1) .12s both; }
+.fade-up-delay-2 { animation: fadeUp .65s cubic-bezier(.22,1,.36,1) .24s both; }
+.fade-up-delay-3 { animation: fadeUp .65s cubic-bezier(.22,1,.36,1) .36s both; }
+
+/* ── Línea decorativa ───────────────────────────────────── */
+.line-draw {
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c-accent), var(--c-accent2));
+  transition: width .35s cubic-bezier(.22,1,.36,1);
+  border-radius: 99px;
+}
+a:hover .line-draw,
+.hobby-card:hover .line-draw { width: 100%; }
+
+/* ── Nav ────────────────────────────────────────────────── */
+nav {
+  background: rgba(247, 249, 248, 0.88) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--c-border) !important;
+  box-shadow: 0 1px 0 rgba(14,122,90,0.06);
+}
+
+/* Logo en el nav */
+nav .italic,
+nav .font-display {
+  background: linear-gradient(135deg, var(--c-accent) 0%, var(--c-accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: var(--font-display) !important;
+  font-style: italic;
+}
+
+/* ── Tarjetas hobby ─────────────────────────────────────── */
+.hobby-card {
+  background: var(--c-hobby);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  cursor: default;
+  transition: transform .3s cubic-bezier(.22,1,.36,1),
+              box-shadow .3s ease,
+              border-color .3s ease;
+  box-shadow: 0 2px 8px var(--c-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.hobby-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-accent), var(--c-accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+}
+.hobby-card:hover::after { transform: scaleX(1); }
+.hobby-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(14,122,90,0.25);
+  box-shadow: 0 20px 48px rgba(15,28,22,0.12), 0 0 0 1px rgba(14,122,90,0.08);
+}
+
+/* ── Avatar ring ────────────────────────────────────────── */
+.avatar-ring {
+  background: conic-gradient(
+    var(--c-accent)  0%,
+    var(--c-accent2) 40%,
+    var(--c-gold)    70%,
+    var(--c-accent)  100%
+  );
+  padding: 3px;
+  border-radius: 50%;
+  animation: spinRing 9s linear infinite;
+}
+.avatar-ring-inner {
+  background: var(--c-surface);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Inputs ─────────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  background-color: var(--c-surface);
+  border: 1.5px solid rgba(14,122,90,0.18);
+  border-radius: var(--radius-md);
+  padding: .8rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: .9375rem;
+  color: var(--c-fg);
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.form-input::placeholder { color: var(--c-muted); }
+.form-input:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  background-color: #FAFFFE;
+  box-shadow: 0 0 0 4px rgba(14,122,90,0.10);
+}
+.form-input.border-red-400 { border-color: #ef4444; }
+
+/* ── Alertas ────────────────────────────────────────────── */
+.alert { animation: slideIn .4s cubic-bezier(.22,1,.36,1) both; }
+
+.alert-ok {
+  background: rgba(14, 122, 90, .08);
+  border: 1.5px solid rgba(14, 122, 90, .25);
+  color: #0A5C42;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: .875rem;
+}
+
+.alert-err {
+  background: rgba(232, 98, 42, .08);
+  border: 1.5px solid rgba(232, 98, 42, .25);
+  color: #B84010;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: .875rem;
+}
+
+/* ── Botón primario ─────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: linear-gradient(135deg, var(--c-accent) 0%, #0A5C42 100%);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .875rem;
+  letter-spacing: .01em;
+  padding: .75rem 1.6rem;
+  border-radius: 99px;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .25s ease, opacity .2s ease;
+  box-shadow: 0 4px 14px rgba(14,122,90,0.30);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(14,122,90,0.38);
+  opacity: .93;
+  font-size: .875rem;
+}
+.btn-primary:active { transform: translateY(0); }
+
+/* ── Botón outline ──────────────────────────────────────── */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background: transparent;
+  color: var(--c-fg);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .9rem;
+  padding: .75rem 1.6rem;
+  border-radius: 99px;
+  border: 1.5px solid rgba(15,28,22,0.18);
+  cursor: pointer;
+  transition: border-color .25s ease, color .25s ease, background .25s ease;
+}
+.btn-outline:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+  background: rgba(14,122,90,0.05);
+}
+
+/* ── Tabla admin ────────────────────────────────────────── */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: .9rem;
+}
+.admin-table thead {
+  background: var(--c-raised);
+}
+.admin-table th {
+  text-align: left;
+  padding: .875rem 1.125rem;
+  color: var(--c-accent);
+  font-weight: 600;
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  border-bottom: 2px solid var(--c-border);
+}
+.admin-table td {
+  padding: 1rem 1.125rem;
+  border-bottom: 1px solid rgba(14,122,90,0.08);
+  color: #1A2A24; /* más oscuro que var(--c-fg) */
+  vertical-align: top;
+  transition: background 0.2s ease;
+}
+/*
+.admin-table tr:last-child td { 
+  border-bottom: none; 
+}
+*/
+.admin-table tr:hover td { 
+  background: rgba(14,122,90,0.04); 
+}
+/* Para la columna de correo */
+.admin-table a {
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+/*
+.admin-table .msg-cell { 
+  max-width: 300px; 
+  word-break: break-word;
+  line-height: 1.5;
+}
+*/
+
+/* ── Badge ──────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: .22rem .7rem;
+  border-radius: 99px;
+  font-size: .68rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  background: rgba(14,122,90,0.10);
+  color: var(--c-accent);
+  border: 1px solid rgba(14,122,90,0.20);
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--c-base); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--c-accent), var(--c-accent2));
+  border-radius: 3px;
+}
+
+
+/* Fondo con imagen semitransparente (overlay oscuro) */
+.bg-img-overlay {
+  position: relative;
+  background-image: url('../img/onepiece.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-img-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.55); /* Ajusta opacidad: 0.55 = 55% oscuro */
+  border-radius: inherit; /* Hereda el border-radius del contenedor */
+  z-index: 1;
+}
+
+.bg-img-overlay > * {
+  position: relative;
+  z-index: 2;
+}
+
+.bg-img-overlay.surface-translucent {
+  background-color: rgba(252, 252, 250, 0.85); /* blanco roto con transparencia */
+  background-blend-mode: overlay; /* mezcla imagen con color */
+}
+
