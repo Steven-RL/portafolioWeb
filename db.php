@@ -12,20 +12,31 @@
 
 // Dirección del servidor MySQL (localhost = máquina local)
 // Si la BD estuviera en otro servidor, se pondría su IP o dominio (ej: "192.168.1.100", "db.example.com")
-$host = "localhost";
 
-// Usuario de MySQL que tiene permisos en la base de datos 'portafolio'
-// Este usuario debe estar creado en MySQL con sus permisos correspondientes
-$usuario = "portafolio_user";
+// Detectar el entono de desarrollo o producción para usar credenciales adecuadas
+$es_local = ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1');
+    if($es_local) {
+        // Entorno de desarrollo (XAMPP local)
+    $host = "localhost";
 
-// Contraseña del usuario de MySQL
-// IMPORTANTE: En producción, guardar esto en un archivo .env o variable de entorno
-$password = "a1d2m3i@n#";
+    // Usuario de MySQL que tiene permisos en la base de datos 'portafolio'
+    // Este usuario debe estar creado en MySQL con sus permisos correspondientes
+    $usuario = "portafolio_user";
 
-// Nombre de la base de datos a la que conectarse
-// Debe existir previamente en el servidor MySQL
-$base_datos = "portafolio";
+    // Contraseña del usuario de MySQL
+    // IMPORTANTE: En producción, guardar esto en un archivo .env o variable de entorno
+    $password = "a1d2m3i@n#";
 
+    // Nombre de la base de datos a la que conectarse
+    // Debe existir previamente en el servidor MySQL
+    $base_datos = "portafolio";
+} else {
+    // Entorno de producción (hosting gratuito o servidor externo)
+    $host = "sql302.infinityfree.com";
+    $usuario = "if0_42065043";
+    $password = "SIwmfFjiBAHGv";
+    $base_datos = "if0_42065043_web_portafolio";
+}
 // ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 // PASO 2: CREAR CONEXIÓN A LA BASE DE DATOS
 // ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
