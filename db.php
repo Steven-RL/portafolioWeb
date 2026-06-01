@@ -30,6 +30,7 @@ $es_local = ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] 
     // Nombre de la base de datos a la que conectarse
     // Debe existir previamente en el servidor MySQL
     $base_datos = "portafolio";
+    
 } else {
     // Entorno de producción (hosting gratuito o servidor externo)
     $host = "sql302.infinityfree.com";
